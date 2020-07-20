@@ -1,0 +1,165 @@
+Exercise:3
+
+1.Display all the Supplier names with the initial letter capital?
+ 
+use dbms_exercise;
+
+select *from supplier;
+S#      Sname   Statas  City
+S1	Ram	10	London
+S2	Ravi	20	Paris
+S3	Roshni	30	Athens
+S4	Raju	40	London
+S5	ranu	50	indore
+
+select  concat(substr(upper(sname),1,1),substr(lower(sname),2)) from supplier;
+S#      Sname   Statas  City
+S1	Ram	10	London
+S2	Ravi	20	Paris
+S3	Roshni	30	Athens
+S4	Raju	40	London
+S5	ranu	50	indore
+
+-------------------------------------------------------------------------------------
+
+2.Display all the Supplier names in upper case. 
+
+select upper(sname) from supplier;
+upper(sname)
+RAM
+RAVI
+ROSHNI
+RAJU
+RANU
+---------------------------------------------------------------------------------------
+
+3. Display all the Supplier names in lower case. 
+
+select lower(sname) from supplier;
+lower(sname)
+ram
+ravi
+roshni
+raju
+ranu
+
+--------------------------------------------------------------------------------------------
+
+4. Display all the Supplier names padded to 25 characters, with spaces on the left. 
+
+select lpad(sname,25,'*') from supplier;
+lpad(sname,25,'*')
+**********************Ram
+*********************Ravi
+*******************Roshni
+*********************Raju
+*********************ranu
+          or
+select lpad(sname,25,'*') as "sname" from supplier;
+sname
+**********************Ram
+*********************Ravi
+*******************Roshni
+*********************Raju
+*********************ranu
+
+--------------------------------------------------------------------------------------------
+
+5. Display all the Supplier names (with ‘la’ replaced by ‘ro’).
+   HINT: REPLACE.
+
+select *from supplier;
+S#      Sname   Statas  City
+S1	Ram	10	London
+S2	Ravi	20	Paris
+S3	Roshni	30	Athens
+S4	Raju	40	London
+S5	ranu	50	indore
+S6	lakhan	60	mumbai
+
+select replace(sname,'la','ro') as "sname" from supplier;
+sname
+Ram
+Ravi
+Roshni
+Raju
+ranu
+rokhan
+                  or
+select replace(sname,'la','ro') from supplier;
+replace(sname,'la','ro')
+Ram
+Ravi
+Roshni
+Raju
+ranu
+rokhan
+---------------------------------------------------------------------------------------------
+
+6. Implement the above command such that ‘l’ is replaced with ‘r’ and ‘a’ is replaced
+with ‘o’. 
+select sname,replace(sname,'l','r'),replace(sname,'a','o') from supplier;
+
+sname       replace(sname,'l','r')       replace(sname,'a','o')
+Ram	    Ram			         Rom
+Ravi	    Ravi	                 Rovi
+Roshni	    Roshni	                 Roshni
+Raju	    Raju	                 Roju
+ranu	    ranu	                 ronu
+lakhan	    rakhan	                 lokhon
+
+-------------------------------------------------------------------------------------------
+
+7. Display the Supplier names and the lengths of the names. 
+ 
+select sname, length(sname) from supplier;
+sname   length(sname)
+Ram	3
+Ravi	4
+Roshni	6
+Raju	4
+ranu	4
+lakhan	6
+-----------------------------------------------------------------------------------------
+
+8. Use the soundex function to search for a supplier by the name of ‘BLOKE’.
+select *from supplier;
+S#      Sname   Statas  City
+S1	Ram	10	London
+S2	Ravi	20	Paris
+S3	Roshni	30	Athens
+S4	Raju	40	London
+S5	ranu	50	indore
+S6	lakhan	60	mumbai
+S7	block	70	delhi
+
+select *from supplier where soundex(sname)=soundex('bloke');
+S#      Sname   Statas  City
+S7	block	70	delhi
+
+-----------------------------------------------------------------------------------------------
+
+9. Display the Supplier name and the status (as Ten, Twenty, Thirty, etc.).
+
+select sname , statas from supplier order by statas;
+sname   statas 
+Ram	10
+Ravi	20
+Roshni	30
+Raju	40
+ranu	50
+lakhan	60
+block	70
+
+------------------------------------------------------------------------------------------
+10. Display the current day (e.g. Thursday).
+
+SELECT date_format(CURDATE(),'%W %D %M %Y %T');
+
+date_format(CURDATE(),'%W %D %M %Y %T')
+Monday 20th July 2020 00:00:00
+              or
+SELECT date_format(CURDATE(),'%W %D %M %Y %T') as "current date";
+ current date
+'Monday 20th July 2020 00:00:00'
+-------------------------------------------------------------------------------------------

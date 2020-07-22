@@ -1,0 +1,130 @@
+Assignment:7
+
+1) Write a query that counts all orders for October 3
+
+use class_assignment;
+
+select *from orders;
+
+Onum    Amt     Odate           Cnum    Snum
+3001	18.69	1990-10-03	2008	1007
+3003	767.19	1990-10-03	2001	1001
+3002	1900.10	1990-10-03	2007	1004
+3005	1560.45	1990-10-03	2003	1002
+3006	1098.16	1990-10-03	2008	1007
+3009	1713.23	1990-10-04	2002	1003
+3007	75.75	1990-10-04	2004	1002
+3008	4723.00	1990-10-05	2006	1001
+3010	1309.95	1990-10-06	2004	1002
+3011	9891.88	1990-10-06	2006	1001
+
+select count(*) from orders where Odate='1990-10-3';
+count(*)
+5
+
+----------------------------------------------------------------------------------------------
+
+2) Write a query that counts the number of different non-NULL city values in the
+Customers table.
+
+select *from customers;
+Cnum    Cname     City      Rating  Snum
+2001	Hoffman	  London    100	    1001
+2002	Giovanni  Rom	    200	    1003
+2003	Liu	  San Jose  200	    1002
+2004	Grass	  Berlin    300	    1002
+2006	Clemens	  London    100	    1001
+2007	Pereira	  Rome	    100	    1004
+2008	Cisneros  San Jose  300	    1007
+2008	rohan	  London    200	    1005
+2009	rockey		    200	    1008
+
+select count(city) from customers;
+count(city)
+8
+----------------------------------------------------------------------------------------------
+
+3) Write a query that selects each customer’s smallest order.
+
+select *from orders;
+
+Onum    Amt     Odate           Cnum    Snum
+3001	18.69	1990-10-03	2008	1007
+3003	767.19	1990-10-03	2001	1001
+3002	1900.10	1990-10-03	2007	1004
+3005	1560.45	1990-10-03	2003	1002
+3006	1098.16	1990-10-03	2008	1007
+3009	1713.23	1990-10-04	2002	1003
+3007	75.75	1990-10-04	2004	1002
+3008	4723.00	1990-10-05	2006	1001
+3010	1309.95	1990-10-06	2004	1002
+3011	9891.88	1990-10-06	2006	1001
+
+select min(Amt) from orders;
+min(Amt)
+18.69
+------------------------------------------------------------------------------------------------------
+
+4) Write a query that selects the first customer, in alphabetical order, whose name
+begins with G.
+
+select *from customers;
+Cnum    Cname     City      Rating  Snum
+2001	Hoffman	  London    100	    1001
+2002	Giovanni  Rom	    200	    1003
+2003	Liu	  San Jose  200	    1002
+2004	Grass	  Berlin    300	    1002
+2006	Clemens	  London    100	    1001
+2007	Pereira	  Rome	    100	    1004
+2008	Cisneros  San Jose  300	    1007
+2008	rohan	  London    200	    1005
+2009	rockey		    200	    1008
+
+select min(cname) from customers where cname like 'G%';
+min(cname)
+Giovanni
+
+---------------------------------------------------------------------------------------------
+
+5) Write a query that selects the highest rating in each city.
+
+select *from customers;
+Cnum    Cname     City      Rating  Snum
+2001	Hoffman	  London    100	    1001
+2002	Giovanni  Rom	    200	    1003
+2003	Liu	  San Jose  200	    1002
+2004	Grass	  Berlin    300	    1002
+2006	Clemens	  London    100	    1001
+2007	Pereira	  Rome	    100	    1004
+2008	Cisneros  San Jose  300	    1007
+2008	rohan	  London    200	    1005
+2009	rockey		    200	    1008
+
+SELECT max(rating) "highest rating" from customers;
+highest rating
+300
+
+-------------------------------------------------------------------------------------------------
+
+6) Write a query that counts the number of salespeople registering orders for each
+day. (If a salesperson has more than one order on a given day, he or she should be
+counted only once.).
+
+select *from orders;
+
+Onum    Amt     Odate           Cnum    Snum
+3001	18.69	1990-10-03	2008	1007
+3003	767.19	1990-10-03	2001	1001
+3002	1900.10	1990-10-03	2007	1004
+3005	1560.45	1990-10-03	2003	1002
+3006	1098.16	1990-10-03	2008	1007
+3009	1713.23	1990-10-04	2002	1003
+3007	75.75	1990-10-04	2004	1002
+3008	4723.00	1990-10-05	2006	1001
+3010	1309.95	1990-10-06	2004	1002
+3011	9891.88	1990-10-06	2006	1001
+
+select count(distinct odate,snum) from orders ;
+count(distinct odate,snum)
+9
+-----------------------------------------------------------------------------------------------

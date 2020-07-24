@@ -1,0 +1,125 @@
+Assignment:9
+1) Write a query that lists each order number followed by the name of the customer
+who made the order.
+select *from orders;
+Onum    Amt     Odate           Cnum    Snum
+3001	18.69	1990-10-03	2008	1007
+3003	767.19	1990-10-03	2001	1001
+3002	1900.10	1990-10-03	2007	1004
+3005	1560.45	1990-10-03	2003	1002
+3006	1098.16	1990-10-03	2008	1007
+3009	1713.23	1990-10-04	2002	1003
+3007	75.75	1990-10-04	2004	1002
+3008	4723.00	1990-10-05	2006	1001
+3010	1309.95	1990-10-06	2004	1002
+3011	9891.88	1990-10-06	2006	1001
+
+select *from customers;
+2001	Hoffman		London		100	1001
+2002	Giovanni	Rom		200	1003
+2003	Liu		San Jose	200	1002
+2004	Grass		Berlin		300	1002
+2006	Clemens		London		100	1001
+2008	Cisneros	San Jose	300	1007
+2007	Pereira		Rome		100	1004
+2008	rohan		London		200	1005
+2009	rockey				200	1008
+
+select orders.onum,customers.cname from orders,customers where orders.cnum=customers.cnum;
+onum    cname
+3003	Hoffman
+3009	Giovanni
+3005	Liu
+3007	Grass
+3010	Grass
+3008	Clemens
+3011	Clemens
+3001	Cisneros
+3006	Cisneros
+3002	Pereira
+3001	rohan
+3006	rohan
+
+------------------------------------------------------------------------------------------
+
+2) Write a query that gives the names of both the salesperson and the customer for
+each order along with the order number.
+
+select *from orders;
+Onum    Amt     Odate           Cnum    Snum
+3001	18.69	1990-10-03	2008	1007
+3003	767.19	1990-10-03	2001	1001
+3002	1900.10	1990-10-03	2007	1004
+3005	1560.45	1990-10-03	2003	1002
+3006	1098.16	1990-10-03	2008	1007
+3009	1713.23	1990-10-04	2002	1003
+3007	75.75	1990-10-04	2004	1002
+3008	4723.00	1990-10-05	2006	1001
+3010	1309.95	1990-10-06	2004	1002
+3011	9891.88	1990-10-06	2006	1001
+
+select *from customers;
+2001	Hoffman		London		100	1001
+2002	Giovanni	Rom		200	1003
+2003	Liu		San Jose	200	1002
+2004	Grass		Berlin		300	1002
+2006	Clemens		London		100	1001
+2008	Cisneros	San Jose	300	1007
+2007	Pereira		Rome		100	1004
+2008	rohan		London		200	1005
+2009	rockey				200	1008
+
+select *from salespeople;
+Snum    Sname   City            Comm
+1001	Peel	London	        0.12
+1002	Serres	San Jose	0.13
+1004	Motika	London	        0.11
+1007	Rifkin	Barcelona	0.15
+1003	Axelrod	New York	0.10
+
+select sname,cname,onum from orders, customers, salespeople where orders.cnum=customers.cnum and orders.snum=salespeople.snum;
+
+sname   cname           onum
+Peel	Hoffman		3003
+Axelrod	Giovanni	3009
+Serres	Liu		3005
+Serres	Grass		3007
+Serres	Grass		3010
+Peel	Clemens		3008
+Peel	Clemens		3011
+Rifkin	Cisneros	3001
+Rifkin	Cisneros	3006
+Motika	Pereira		3002
+Rifkin	rohan		3001
+Rifkin	rohan		3006
+
+------------------------------------------------------------------------------------------------
+
+3) Write a query that produces all customers serviced by salespeople with a
+commission above 12%. Output the customer’s name, the salesperson’s name,
+and the salesperson’s rate of commission.
+
+SELECT Customers.cname,Salespeople.snum,comm*100 "RATE OF COMM."
+FROM customers,salespeople WHERE customers.snum=salespeople.snum and comm>0.12;
+cname           snum    RATE OF COMM.
+Liu		1002	13.00
+Grass		1002	13.00
+Cisneros	1007	15.00
+
+-----------------------------------------------------------------------------------------------
+
+4) Write a query that calculates the amount of the salesperson’s commission on each
+order by a customer with a rating above 100.
+
+select amt,comm from orders,customers,salespeople where orders.snum=salespeople.snum and orders.snum=customers.snum and rating>100;
+amt     	comm
+18.69		0.15
+1560.45		0.13
+1560.45		0.13
+1098.16		0.15
+1713.23		0.10
+75.75		0.13
+75.75		0.13
+1309.95		0.13
+1309.95		0.13
+

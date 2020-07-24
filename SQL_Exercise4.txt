@@ -1,0 +1,179 @@
+Exercise :- 4
+
+1. Display the minimum Status in the Supplier table. 
+
+select *from supplier;
+S#      Sname   Statas  City
+S1	Ram	10	London
+S2	Ravi	20	Paris
+S3	Roshni	30	Athens
+S4	Raju	40	London
+S5	ranu	50	indore
+S6	lakhan	60	mumbai
+S7	block	70	delhi
+
+select min(statas) from supplier;
+min(statas)
+10
+-----------------------------------------------------------------------------------------
+
+2. Display the maximum Weight in the Parts table. 
+select *from parts;
+P#      Pname   Color   Weight  City
+P1	Sohan	Black	10.00	London
+P2	Rohan	Blue	13.00	Paris
+P3	Somi	Red	13.50	London
+P4	rockey	grey	12.00	Athens
+P5	sorabh	Black	17.00	Paris
+
+select min(weight) from parts;
+min(weight)
+10.00
+
+---------------------------------------------------------------------------------------------
+
+3.Display the average Weight of the Parts.
+
+select *from parts;
+P#      Pname   Color   Weight  City
+P1	Sohan	Black	10.00	London
+P2	Rohan	Blue	13.00	Paris
+P3	Somi	Red	13.50	London
+P4	rockey	grey	12.00	Athens
+P5	sorabh	Black	17.00	Paris
+
+select avg(weight) from parts;
+avg(weight)
+13.100000
+
+----------------------------------------------------------------------------------------------
+
+4. Display the total Quantity sold for part ‘P1’. 
+
+select *from SPJ;
+desc spj;
+insert into SPJ values('S1','P1','J1','10'),
+('S2','P2','J2','20'),
+('S3','P3','J3','30'),
+('S4','P4','J4','40');
+
+S#  P#  J#      Qty
+S1  P1	J1	10
+S2  P2	J2	20
+S3  P3	J3	30
+S4  P4  J4      40
+
+select sum(Qty) from SPJ where `P#`='p1';
+sum(Qty)
+10
+
+-------------------------------------------------------------------------------------------------
+
+5. Display the total Quantity sold for each part. 
+
+select `P#`, sum(Qty) from spj group by `P#`;
+P#      sum(Qty)
+P1	10
+P2	20
+P3	30
+P4	40
+ 
+----------------------------------------------------------------------------------------------
+
+6. Display the average Quantity sold for each part. 
+
+select *from SPJ;
+S#  P#  J#      Qty
+S1  P1	J1	10
+S2  P2	J2	20
+S3  P3	J3	30
+S4  P4  J4      40
+s5  p4  j5	20
+
+select `P#`, avg(Qty) from spj group by `P#`;
+P#      avg(Qty)
+P1	10
+P2	20
+P3	30
+P4	30
+
+----------------------------------------------------------------------------------------------
+
+7. Display the maximum Quantity sold for each part, provided the maximum Quantity
+is greater than 800.
+
+select *from SPJ;
+S#      P#      J#      Qty
+S1	P1	J1	10
+S2	P2	J2	20
+S3	P3	J3	30
+S4	P4	J4	40
+S5	P4	J5	20
+S6	P6	J6	1000
+ 
+select max(Qty) "Max Quantity" from supplier_parts_projects where Qty > 800;
+Max Quantity
+1000
+
+------------------------------------------------------------------------------------------------
+
+8. Display the Status and the count of Suppliers with that Status. 
+
+select Statas, count(`S#`) from supplier group by Statas;
+Statas  count(`S#`)
+10	1
+20	1
+30	1
+40	1
+50	1
+60	1
+70	1
+
+---------------------------------------------------------------------------------------------
+
+9. Display the count of Projects going on in different cities. 
+select *from project;
+
+J#      Jname   City
+J1	car	Athens
+J2	bike	London
+J3	lms	Athens
+J4	Lcn	Paris
+
+select city,count(jname) from project group by city;
+city    count(jname)
+Athens	2
+London	1
+Paris	1 
+
+--------------------------------------------------------------------------------------------------
+
+10. What is the difference between COUNT(Status) and COUNT(*) ? 
+
+COUNT(Status):-
+ 
+COUNT(Status) evaluates the expression for each row in a set and returns the number of rows having a non-null values.
+	
+COUNT(*):-
+
+COUNT(*) counts the number of items in a set. It includes NULL and duplicate values.
+It returns total number of rows in the table.
+
+------------------------------------------------------------------------------------------------
+
+11. Display the Status and the Count of Suppliers with that Status in the following format
+as shown below:-
+
+Statas Count
+Ten    1
+Twenty 2
+Thirty 3
+
+
+
+
+
+
+
+
+		
